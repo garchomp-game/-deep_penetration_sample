@@ -26,11 +26,22 @@ yieldが該当箇所に置き換えられて自動的に読み込まれるよう
 <%=provide(:title, 'Home')%>
 と言ったようになる
 
+６章5節番外：
+Railsに必要なRubyの知識を学ぶ＆ヘルパー
 
+ヘルパーは、app/helpersの中にあり、この中にヘルパーを定義することができる。
 
+ヘルパーは、いわゆるメソッド的な役割と同じで、html cssに関しても、同じ処理を繰り返すものであれば、基本的にヘルパーにまとめておくことで、便利に再利用をすることができる。
 
-
-
+また、ヘルパーに直接htmlを指定することができ、spanやdiv、h1などを生成する最便利なものではcontent_tagなどが存在する
+def hogehoge
+  content_tag(:span, 'hogehogehogera', style:'color:red;')
+end
+のように、
+content_tag(要素名,'文字列', スタイルやクラスなど)
+とすることが可能で、指定する際は
+<%=hogehoge%>
+などとする
 
 
 
