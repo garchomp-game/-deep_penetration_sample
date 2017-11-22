@@ -23,7 +23,7 @@ yieldが該当箇所に置き換えられて自動的に読み込まれるよう
 ヘッダーに使用されている
 <%=yield(:title)%>
 の(:title)の部分は、provideに対応しており、これは各ビューのprovideの引数を受け取っている。いわゆるparamsと似たような構造と考えても良い。例えばhomeであれば
-<%=provide(:title, 'Home')%>
+<%=provide(:title, 'home')%>
 と言ったようになる
 
 ６章5節番外：
@@ -43,10 +43,37 @@ content_tag(要素名,'文字列', スタイルやクラスなど)
 <%=hogehoge%>
 などとする
 
+7章１節：
+レイアウトを作成する
 
+<!-- [if lt IE 9] -->
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<!-- ![endif] -->
+これは条件付きコメントというもので、IEのみサポートされている特殊な書き方になっている。
 
+今回はbootstrapを適応させて、簡単に見た目をスタイリングすることとした。
+ヘッダーにはnavbar navba-fixed-top navbar-inverseなどを使い、ナビケーションバーにしつつ、コンテンツは中央揃えにしながらも上よりにしてある。
+もちろん中はcontainerで囲ってあげて、その後にリンクを仕込ませる。危うやなのでメモすると
 
+link_to "文字", 'リンク先', id: "logo"
+と言った感じで指定でき、idの部分はclassにすることも可能。
+なお、rubyにおいて引数の（）は省略することができ、更にjsと似たような感じで書くと
+.link_to("文字","リンク先",{id:"logo"})
+と言ったような感じになる
 
+画像の引数の指定は少々複雑で、
+<%=link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org'%>
+と言ったような指定をすることができこの場合は
+
+link_to "文字や（画像,alt）の指定ができる", "飛び先", id classなど
+
+と言ったしていの順番になる。画像が指定できる理由は、返還後
+<a href="#"><img src="" alt=""></a>
+のようになるためである。
+
+bootstrapを安全に運用していくためには、バージョン指定は必須。指定の間違いの内容に確認をしっかりすること。今回は
+gem 'bootstrap-saass', '3.3.1'
+を導入した。またbootstrapと関連性の強いsprocketsも導入した。
 
 
 
