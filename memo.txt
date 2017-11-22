@@ -75,6 +75,14 @@ bootstrapを安全に運用していくためには、バージョン指定は�
 gem 'bootstrap-saass', '3.3.1'
 を導入した。またbootstrapと関連性の強いsprocketsも導入した。
 
+７章２節
+独自CSSの追加
+特筆事項なし
+あるとしたら、bootstrapを使用している場合、初期スタイリングと被らないように気をつけながらスタイリングする必要がある。
+
+また、ページ全体に適応するのであれば、別途custom.css.scssなどとして、application全体のcssとbootstrap専用のcssとを区別してあげる必要がある。
+
+
 
 
 
