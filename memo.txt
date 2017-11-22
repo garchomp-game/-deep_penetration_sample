@@ -173,13 +173,35 @@ deviseではフラッシュメッセージが必要になるが、今回の場�
 
 例えば、もしflash[:success]='welcome to the sample app!'ってなった場合、このkeyの部分をbootstrap_class_forの引数に取ることで、それぞれ対応する結果をヘルパーが返してくれるようになるため。結果としてスマートにスタイリングとテキストを嵌めこむことが可能になる。
 
+7章7節：Userモデルの作成
 
+rails g migrationでの便利な書き方として
+hoge_users name:string
+などとすると、自動的にusersの指定が入り、nameをadd_columnすることができる。（これは便利…）
 
+validates (検証)について
+基本的な指定の仕方
+validates :colum, option
 
+例えば、nameにから文字でないこと(presence)を検証するには
+validates :name, presence: true
+となる。
 
+実際にrails c --sandboxでやってみると、saveの時にfalseを介してくることがわかる。
 
+length: {maximum: 50}
+という部分に関しては、分解してみてみると、多重配列になっていることがわかる
+{length: {maximum: 50}}
+つまり
 
+validates :name, presence: true, length: {maximum: 50}
+この一行をわかりやすく表現すると
+validates(:name, {presence:true},{length: {maximum: 50}})
+となる。
 
+しっかりとバリデーションを設定することで、事故の防止に繋がる。
+
+なお、deviseの設定自体は、config/initializers/devise.rbからいつでも参照することが可能。
 
 
 
