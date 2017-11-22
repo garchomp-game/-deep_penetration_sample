@@ -203,6 +203,21 @@ validates(:name, {presence:true},{length: {maximum: 50}})
 
 なお、deviseの設定自体は、config/initializers/devise.rbからいつでも参照することが可能。
 
+７章８節：ユーザーを表示する
+
+resourcesなusersが生成されていないので、コントローラーを生成し、resourcesを設定する。
+
+そのままだとnewも反映されてしまうので、only:を使って限定的に指定する。
+
+今回はgravaterというサービスを使用してプロフィールの写真として使っていく。
+
+gravaterはプロフィール写真を共通管理するためのサービス。
+ファイルのアップロードなどを考えずに済むので便利
+
+gravatar_forヘルパーを作成し、登録しているプロフィール写真を呼び出せるように設定。
+
+
+
 
 
 
