@@ -160,6 +160,19 @@ rails c --sandbox
 
 こうすることで直接的な変更はなくなるため、安全に様々な研究、実験をすることが可能となる。
 
+7章６節：deviseのインストール
+
+deviseをインストールした際は、必ず
+config/enviroments/developmentに、
+
+config.action_mailer.default_url_options = {host: 'localhost', port :3000}
+
+を入れる。
+
+deviseではフラッシュメッセージが必要になるが、今回の場合、bootstrapに装飾した形で返したいため、予めヘルパーを定義しておいた。
+
+例えば、もしflash[:success]='welcome to the sample app!'ってなった場合、このkeyの部分をbootstrap_class_forの引数に取ることで、それぞれ対応する結果をヘルパーが返してくれるようになるため。結果としてスマートにスタイリングとテキストを嵌めこむことが可能になる。
+
 
 
 
