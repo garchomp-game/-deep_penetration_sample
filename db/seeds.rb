@@ -5,6 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create!([
-  {email: "otoka.japanesedrum@gmail.com",name:"garchomp",password: "garchomps"}
-]) #ダミーで一見作らないとエラーになるため一時的に作成処置。
