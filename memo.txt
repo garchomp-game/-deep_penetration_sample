@@ -232,6 +232,18 @@ headerのパーシャルに変更を加えることでこれは実現するこ�
 
 bootstrapのjs部分についてだが、読み込みの順番がどうやらあるらしい、配置する順番に関しては気をつけること。先にjquery系を行い、次にbootstrap.そのあとにターボリンクなどを配置すると良い。
 
+7章11節：ユーザー情報の変更
+
+ユーザー編集ページ。
+
+ユーザーの更新をする際は、views/registrations/editの編集を行う。
+
+また、パスの指定は、edit_user_path(current_user)という風に設定を追加するだけで可能（なぜcurrent_userで可能かは後ほど調べることにします。）
+
+また、registrations_controllerでは、account_update_paramsをオーバーライドして設定を追加してあげる。今回の場合は、nameもpermitに追加した形で渡している…はずです。
+
+すでに当人のみが編集でき、validatesも最初に地点で設定が完了しているため、編集皇帝はこれにて終了となる。
+
 
 
 
