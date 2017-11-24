@@ -160,7 +160,7 @@ rails c --sandbox
 
 こうすることで直接的な変更はなくなるため、安全に様々な研究、実験をすることが可能となる。
 
-7章６節：deviseのインストール
+7章６節：deviseの導入
 
 deviseをインストールした際は、必ず
 config/enviroments/developmentに、
@@ -173,10 +173,28 @@ deviseではフラッシュメッセージが必要になるが、今回の場�
 
 例えば、もしflash[:success]='welcome to the sample app!'ってなった場合、このkeyの部分をbootstrap_class_forの引数に取ることで、それぞれ対応する結果をヘルパーが返してくれるようになるため。結果としてスマートにスタイリングとテキストを嵌めこむことが可能になる。
 
+基本的なセットアップが終わったら、
+
+  rails g devise:views
+を走らせる。こうすることで必要なものがひと通り全て揃う。
+その後、フラッシュメッセージは必ず表示させなければならない。という指示に基づき、設定を行っていく。
+
+今回は、flashの指定をヘルパーで行い、クラスをbootstrapのものに変換できるようにした。こうすることで用意にスタイリングすることが可能となる。
+
+
+
+
 7章7節：Userモデルの作成
 
+次はdevise専用のデータベース（モデル）を作っていく。作り方は、
+  rails g devise user
+と言ったようになる。
+
+実際に作られたマイグレーションファイルを見てみると、初期ではemailとパスワードなどが作られている。が、nameがないため、これは手動で追加する必要がある。
+そのままマイグレーションファイルに記述してもいいし、またadd_columnから別に追加するやり方もある。
+
 rails g migrationでの便利な書き方として
-hoge_users name:string
+  hoge_users name:string
 などとすると、自動的にusersの指定が入り、nameをadd_columnすることができる。（これは便利…）
 
 validates (検証)について
@@ -202,10 +220,29 @@ validates(:name, {presence:true},{length: {maximum: 50}})
 しっかりとバリデーションを設定することで、事故の防止に繋がる。
 
 なお、deviseの設定自体は、config/initializers/devise.rbからいつでも参照することが可能。
+このファイルの中に記述されている設定を変更することで、実際のdevise設定の反映も可能。
+
+例えば、password_lengthの長さを変えたければ、その値を変更すればいいし、予め多くの設定がコメントアウトにて準備されている。このコメントアウトを外して設定を自由にカスタマイズすることも可能である。
 
 ７章８節：ユーザーを表示する
 
+プログラミングのミスを発見しやすくするために、データベースから取得した情報をページに表示する仕掛けを作成した。
+こうすることで、現在どのページの繊維にいて、結果としてtrue/falseのどっちなのか？というチェックも容易にできるため、作業の効率化に繋がる。
+
+また、一般ユーザーには見られたくないので、デバッグを表示する際の条件分岐に
+  if Rails.env.development?
+という記述を追加するだけで、本番環境で表示されないようにすることが可能。
+
 resourcesなusersが生成されていないので、コントローラーを生成し、resourcesを設定する。
+
+HTTPリクエスト	URL	アクション	名前付きルート	用途
+GET	/users	index	users_path	ユーザー一覧ページ
+GET	/users/1	show	user_path(user)	該当ユーザー表示ページ
+GET	/users/new	new	new_user_path	サインアップページ
+POST	/users	create	users_path	ユーザー登録用アクション
+GET	/users/1/edit	edit	edit_user_path(user)	該当idのユーザー情報編集ページ
+PATCH	/users/1	update	user_path(user)	ユーザー情報更新アクション
+DELETE	/users/1	destroy	user_path(user)	ユーザー削除アクション
 
 そのままだとnewも反映されてしまうので、only:を使って限定的に指定する。
 
@@ -215,6 +252,13 @@ gravaterはプロフィール写真を共通管理するためのサービス。
 ファイルのアップロードなどを考えずに済むので便利
 
 gravatar_forヘルパーを作成し、登録しているプロフィール写真を呼び出せるように設定。
+
+また、GravatarのWEBサイトを参照してDigestのライブラリ内にあるのhexdigestというメソッドを使用mさせてもらいましょう。
+これはMD5ハッシュを作成するための方法を提供してくれるもので、これでメールアドレスからURLを生成して使用します。
+>> email = "MHARTL@example.COM".
+>> Digest::MD5::hexdigest(email.downcase)
+=> "1fda4469bcbec3badf5418269ffc5968"
+注意点としては通常メールアドレスは大文字と小文字を区別しないものの、MD5ハッシュでは区別されてしまう点です。
 
 ７章９節：deviseを利用したユーザー登録
 
