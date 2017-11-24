@@ -305,8 +305,23 @@ Module::Class.method
 destroyを実装するにあたって、ユーザーモデルにadmin属性を追加。booleanカラムを追加してあげる。
 こうすることで、管理者のみでリュートの実行をすることが可能になる。
 
+７章１５節：マイクロポストのモデルを作る。
 
+ユーザー、マイクロポストの関連性について。
+片方に対してはbelongs_toを使い、他方に対してはhas_manyを使う。
 
+一対一、一対多。多対多野３つに憑って基本的には別れる。
+また、belongs_to has_manyで関連付けたことにおって使えるメソッドは
+
+micropost.user
+user.microposts
+user.microposts.create(arg) ...
+と言ったようになる。
+なお
+Micropost.creaは
+user.microposts.createになることに注意
+
+また、デフォルトのスコープをラムダで指定することも可能。
 
 
 
