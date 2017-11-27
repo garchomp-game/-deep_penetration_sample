@@ -23,7 +23,7 @@ def make_users
 end
 
 def make_microposts
-  users = User.all(limit: 6)
+  users = User.limit(6)
   50.times do
     content = Faker::Lorem.sentence(5)
     users.each { |user| user.microposts.create!(content: content) }
@@ -35,6 +35,10 @@ def make_relationships
   user  = users.first
   followed_users = users[2..50]
   followers      = users[3..40]
-  followed_users.each { |followed| user.follow!(followed) }
+  followed_users.each { |followed| user.follow!(followed) }# TODO: この部分でエラーを起こしてしまい先に進めません…
+# TODO:/home/garchomp/hogera/lib/tasks/sample_data.rake:38:in `block in make_relationships'
+# TODO:/home/garchomp/hogera/lib/tasks/sample_data.rake:38:in `each'
+# TODO:/home/garchomp/hogera/lib/tasks/sample_data.rake:38:in `make_relationships'
+# TODO:/home/garchomp/hogera/lib/tasks/sample_data.rake:6:in `block (2 levels) in <top (required)>'
   followers.each      { |follower| follower.follow!(user) }
 end
