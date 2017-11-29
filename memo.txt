@@ -164,8 +164,9 @@ rails c --sandbox
 
 deviseをインストールした際は、必ず
 config/enviroments/developmentに、
-
+<%
 config.action_mailer.default_url_options = {host: 'localhost', port :3000}
+%>
 
 を入れる。
 
@@ -212,9 +213,13 @@ length: {maximum: 50}
 {length: {maximum: 50}}
 つまり
 
+<%
 validates :name, presence: true, length: {maximum: 50}
+%>
 この一行をわかりやすく表現すると
+<%
 validates(:name, {presence:true},{length: {maximum: 50}})
+%>
 となる。
 
 しっかりとバリデーションを設定することで、事故の防止に繋がる。
@@ -435,13 +440,40 @@ follow!やunfollow!などを使用して行くだけ。新たにrelationshipc_co
 この実装に関しては、sqlの知識も必要になってくるため。少々複雑になってくる。
 まずはユーザーモデルでフィードの実装を行い、マイクロポストモデルにて検索処理を実装していく。
 
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%11/28 do%>
 応用課題1：メモ
 画像アップロードを調査しよう。
 gem "carrerwave"
 rails g uploader Image
+<%end
+
+
+  11/29 do%>
 その後、今回の場合コメントを投稿する際にmicropostを使用するので、データベース、モデル、コントローラーに変更を加えておく
 モデルを開き、アップローダーへのマウントをする記述の追加。
 以降、受け取り処理の実装
+<%CLEAR%>
 <!-- 追加箇所 開始 -->
  <div class="field">
    <% if @product.image? %>
@@ -470,6 +502,7 @@ rails g uploader Image
  def product_params
    params.require(:product).permit(:name, :price, :image, :image_cache, :remove_image)
  end
+ "#{i.user_id} #{i.content} #{i.image}"
  %>
  imageとimage_cache remove_imageが加わった。
 
@@ -484,10 +517,34 @@ rails g uploader Image
   <% end %>
 </p>
 <!-- 追加箇所 終了 -->
+<%end%>
 
 
+応用課題２：お問い合わせフォームの実装
 
+要件定義↓
 
+rails g controller contact(resources: new create)
+new=get
+create=post
+rails g model Contact name:string email:string content:string
+
+以下を追加
+<%
+def create
+  @contact=Contact.create!(contact_params)
+  # メールを送信する処理
+  redirect_to '/'
+end
+  private
+
+    def contact_params
+      params.require(:contact).permit(:name,:email,:content)
+    end
+%>
+modelのvalidatesはname email contentともにからではないかの検証
+送信し終わるとフラッシュメッセージの表示
+以上
 
 
 
