@@ -6,6 +6,10 @@
 <span class="text">メールアドレス：</span>
 <%=f.text_field :email%>
 
+<span class="text">年齢：</span>
+<%=f.select :age do%>
+<%for i in 1..100 do%><option value="<%=i%>"><%=i%></option><%end%>
+<%end%>
 <span class="text">コメント：</span>
 <%=f.text_area :content%>
 
