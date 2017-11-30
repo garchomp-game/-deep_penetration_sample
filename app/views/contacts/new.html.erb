@@ -1,6 +1,15 @@
-<%=form_for @contact do|f|%>
+<%=form_for @contact, html:{class: 'contact-us-form'} do|f|%>
+
+<span class="text">名前：</span>
 <%=f.text_field :name%>
+
+<span class="text">メールアドレス：</span>
 <%=f.text_field :email%>
+
+<span class="text">コメント：</span>
 <%=f.text_area :content%>
-<%=f.submit%>
+
+<span class="submit">
+  <%=f.submit%>
+</span>
 <%end%>

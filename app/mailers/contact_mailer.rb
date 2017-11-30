@@ -9,7 +9,7 @@ class ContactMailer < ApplicationMailer
     @content=contact.content
     @email=contact.email
     @user = contact.name
-    mail to:      "otoka.japanesedrum@gmail.com",
+    mail to:      'otoka.japanesedrum@gmail.com',
          subject: "#{@user}からのお問い合わせ"
   end
 end
