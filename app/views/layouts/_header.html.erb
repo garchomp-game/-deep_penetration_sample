@@ -3,6 +3,7 @@
     <%=link_to "sample_app", root_path, id: "logo"%>
     <nav>
       <ul class="nav navbar-right navbar-nav">
+        <li><%=link_to "お問い合わせ", new_contact_path%></li>
         <li><%=link_to "Home", root_path%></li>
         <li><%=link_to "Help", help_path%></li>
         <%if signed_in?%>

@@ -520,6 +520,11 @@ rails g uploader Image
 <%end%>
 
 
+
+
+
+
+
 応用課題２：お問い合わせフォームの実装
 
 要件定義↓
@@ -544,6 +549,15 @@ end
 %>
 modelのvalidatesはname email contentともにからではないかの検証
 送信し終わるとフラッシュメッセージの表示
+
+メール送信処理は、gem "letter_opener"を使用して別タブで開くようにする。メーラー自体は手動で生成する。
+debelopmentまたはinitialize配下にメール送信設定を記述後、
+rails g mailer Mailer method
+と言った感じで生成する。app/mailers配下にメーラーファイルが生成されるので、設定を記述していく。
+
+mailメソッドを使用する。
+今回の場合は
+
 以上
 
 
