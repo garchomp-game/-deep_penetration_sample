@@ -62,3 +62,7 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem "carrierwave"
 gem 'rmagick'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'dotenv-rails'
